@@ -140,6 +140,17 @@ WebTab::WebTab(QWidget *parent)
     m_webView = new TabbedWebView(this);
     m_webView->setPage(new WebPage);
     m_webView->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+
+
+
+
+    // MOD
+    m_webView->setStyleSheet("background:transparent");
+    m_webView->page()->setBackgroundColor(Qt::transparent);
+
+
+
+
     setFocusProxy(m_webView);
 
     m_locationBar = new LocationBar(this);

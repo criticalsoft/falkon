@@ -1186,13 +1186,45 @@ void MainApplication::setUserStyleSheet(const QString &filePath)
     if (userCss.isEmpty())
         return;
 
+
+
+
+    // MOD
     QWebEngineScript script;
-    script.setName(name);
-    script.setInjectionPoint(QWebEngineScript::DocumentReady);
-    script.setWorldId(WebPage::SafeJsWorld);
+    script.setName(QStringLiteral("_falkon_userstylesheet"));
+    script.setInjectionPoint(QWebEngineScript::DocumentCreation);
+
+    QString source = QL1S("(function() {"
+                        //   "alert('Working');"
+
+                          "var checkReady = setInterval(function(){"
+                                // FIX: YouTube kevlar_global_styles Conflict
+                                "document.getElementsByTagName('html')[0].style.setProperty('background-color', 'transparent', 'important');"
+                                "document.getElementsByTagName('body')[0].style.setProperty('background-color', 'transparent', 'important');"
+                                
+                                "var head = document.getElementsByTagName('head')[0];"
+                                "if (!head) return;"
+                                "if (head) {"
+                                    "clearInterval(checkReady);"
+
+                                    "var css = document.createElement('style');"
+                                    "css.setAttribute('type', 'text/css');"
+                                    "css.setAttribute('id', 'Glass_MOD');"
+                                    "css.appendChild(document.createTextNode('%1'));"
+                                    "head.appendChild(css);"
+                                "}"
+                          "});"
+
+                          "})()");
+
+    script.setWorldId(QWebEngineScript::MainWorld);
     script.setRunsOnSubFrames(true);
-    script.setSourceCode(Scripts::setCss(userCss));
+    script.setSourceCode(source.arg(userCss));
     m_webProfile->scripts()->insert(script);
+
+
+
+
 }
 
 void MainApplication::createJumpList()

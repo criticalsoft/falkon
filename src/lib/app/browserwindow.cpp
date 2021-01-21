@@ -78,6 +78,15 @@
 #include <QCollator>
 #include <QTemporaryFile>
 
+
+
+
+// MOD
+// #include <QGraphicsBlurEffect>
+
+
+
+
 #ifdef QZ_WS_X11
 #include <QX11Info>
 #include <xcb/xcb.h>
@@ -200,6 +209,26 @@ BrowserWindow::BrowserWindow(Qz::BrowserWindowType type, const QUrl &startUrl)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setAttribute(Qt::WA_DontCreateNativeAncestors);
+
+
+
+
+    // MOD
+    // Follow / UnFollow System / Kvantum Color Scheme
+    // (Falkon First Window) Not Work With Old Version Of Kvantum (Only Falkon)
+    // setAttribute(Qt::WA_TranslucentBackground, true);
+    // setAttribute(Qt::WA_NoSystemBackground);
+
+    // QPalette p = palette();
+    // p.setBrush(QPalette::Base, Qt::transparent);
+    // setPalette(p);
+
+    // FIX: Blur Window BackGround (WithOut Force Blur KWin Script)
+    // QGraphicsBlurEffect *effect = new QGraphicsBlurEffect;
+    // setGraphicsEffect(effect);
+
+
+
 
     setObjectName(QSL("mainwindow"));
     setWindowTitle(tr("Falkon"));

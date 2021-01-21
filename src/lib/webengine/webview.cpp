@@ -52,6 +52,15 @@
 #include <QQuickWidget>
 #include <QtWebEngineWidgetsVersion>
 
+
+
+
+// MOD
+// #include <QGraphicsBlurEffect>
+
+
+
+
 bool WebView::s_forceContextMenuOnMouseRelease = false;
 
 WebView::WebView(QWidget* parent)
@@ -69,6 +78,17 @@ WebView::WebView(QWidget* parent)
     connect(this, &QWebEngineView::titleChanged, this, &WebView::slotTitleChanged);
 
     m_currentZoomLevel = zoomLevels().indexOf(100);
+
+
+
+
+    // MOD
+    // FIX: Blur Window BackGround (WithOut Force Blur KWin Script)
+    // QGraphicsBlurEffect *effect = new QGraphicsBlurEffect;
+    // setGraphicsEffect(effect);
+
+
+
 
     setAcceptDrops(true);
     installEventFilter(this);
